@@ -401,9 +401,10 @@ class UISettingsManager(QObject):  # pylint: disable=R0903
 
     def __init__(self):
         QObject.__init__(self)
-        self._action = core.actionManager().addAction("mSettings/aSettings",
-                                                      _tr("Settings.."),
-                                                      QIcon(':/enkiicons/settings.png'))
+        self._action = core.actionManager().addAction(
+            "mSettings/aSettings",
+            _tr("Settings.."),
+            QIcon.fromTheme('configure-shortcut'))
         self._action.setStatusTip(_tr("Edit settigns.."))
         self._action.triggered.connect(self._onEditSettings)
 

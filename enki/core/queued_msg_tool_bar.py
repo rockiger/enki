@@ -3,7 +3,7 @@
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QEvent, Qt, QTimer
 from PyQt5.QtWidgets import (QAbstractButton, QDialogButtonBox, QHBoxLayout,
-                             QLabel, QSizePolicy, QToolBar, QWidget)
+                             QLabel, QSizePolicy, QToolBar, QWidget, QStyle)
 from PyQt5.QtGui import QColor, QBrush, QPainter, QPixmap
 
 
@@ -31,7 +31,8 @@ class _QueuedMessageWidget(QWidget):
         QWidget.__init__(self, *args)
         self._messages = []
         self._defaultTimeout = 0
-        self._defaultPixmap = QPixmap(":/enkiicons/infos.png")
+        self._defaultPixmap = self.style().standardIcon(
+            getattr(QStyle, "SP_MessageBoxInformation"))
         self._defaultBackground = QBrush(QColor(250, 230, 147))
         self._defaultForeground = QBrush(QColor(0, 0, 0))
 

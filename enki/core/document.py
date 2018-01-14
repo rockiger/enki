@@ -13,7 +13,8 @@ from PyQt5.QtWidgets import QFileDialog, \
     QPlainTextEdit, \
     QWidget, \
     QVBoxLayout, \
-    QApplication
+    QApplication, \
+    QStyle
 from PyQt5.QtGui import QColor, QFont, QIcon, QTextOption
 
 from qutepart import Qutepart
@@ -443,20 +444,24 @@ class Document(QWidget):
         """Icon for the opened files model
         """
         if self.isNeverSaved():  # never has been saved
-            icon = "save.png"
+            icon = "SP_DialogSaveButton"
         elif self._externallyRemoved and self.qutepart.document().isModified():
-            icon = 'modified-externally-deleted.png'
+            icon = 'SP_MessageBoxWarning'
         elif self._externallyRemoved:
-            icon = "close.png"
+            icon = "SP_DialogCloseButton"
         elif self._externallyModified and self.qutepart.document().isModified():
-            icon = "modified-externally-modified.png"
+            icon = "SP_MessageBoxWarning"
         elif self._externallyModified:
-            icon = "modified-externally.png"
+            icon = "SP_MessageBoxWarning"
         elif self.qutepart.document().isModified():
-            icon = "save.png"
+            icon = "SP_DialogSaveButton"
         else:
-            icon = "transparent.png"
-        return QIcon(":/enkiicons/" + icon)
+            icon = ""
+
+        if icon:
+            return self.style().standardIcon(getattr(QStyle, icon))
+        else:
+            return QIcon(":/enkiicons/transparent.png")
 
     def invokeGoTo(self):
         """Show GUI dialog, go to line, if user accepted it
@@ -559,8 +564,8 @@ class Document(QWidget):
         if (event.type() == QEvent.FocusIn and
           (obj == self or obj == self.focusProxy()) ):
             for dock in core.mainWindow().findChildren(DockWidget):
-                # Close all unpinned docks. The exception: if the Open Files 
-                # dock is waiting for the Ctrl button to be released, keep it 
+                # Close all unpinned docks. The exception: if the Open Files
+                # dock is waiting for the Ctrl button to be released, keep it
                 # open; it will be be closed when Ctrl is released.
                 if not dock.isPinned() and (not getattr(dock, '_waitForCtrlRelease', False)):
                     dock._close()

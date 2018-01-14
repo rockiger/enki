@@ -217,7 +217,7 @@ class MainWindow(QMainWindow):
         def menu(path, name, icon, visible=True):
             """Subfunction for create a menu in the main menu"""
             menuObject = core.actionManager().addMenu(path, name)
-            if icon:
+            if icon :
                 menuObject.setIcon(QIcon.fromTheme(icon))
             self._createdMenuPathes.append(path)
             if not visible:

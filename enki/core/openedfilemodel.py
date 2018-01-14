@@ -28,7 +28,8 @@ from PyQt5.QtWidgets import QAbstractItemView, \
     QMenu, \
     QMessageBox, \
     QTreeView, \
-    QApplication
+    QApplication, \
+    QStyle
 from PyQt5.QtGui import QIcon
 
 
@@ -363,7 +364,7 @@ class OpenedFileExplorer(DockWidget):
     """
 
     def __init__(self, workspace):
-        DockWidget.__init__(self, workspace, "&Opened Files", QIcon(":/enkiicons/filtered.png"), "Alt+O")
+        DockWidget.__init__(self, workspace, "&Opened Files", workspace.style().standardIcon(getattr(QStyle, "SP_FileDialogListView")), "Alt+O")
 
         self._workspace = workspace
 
