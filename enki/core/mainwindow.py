@@ -171,12 +171,12 @@ class MainWindow(QMainWindow):
     def _initMenubarAndStatusBarLayout(self):
         """Create top widget and put it on its place
         """
-        if not 'darwin' == sys.platform:
-            # on Ubuntu toolbar, docs and editor area look as one widget. Ugly
-            # Therefore it is separated with line. On Mac seems OK
-            # I can't predict, how it will look on other platforms, therefore line is used for all, except Mac
-            toolBarStyleSheet = "QToolBar {border: 0; border-bottom-width: 1; border-bottom-style: solid}"""
-            self._topToolBar.setStyleSheet(toolBarStyleSheet)
+        # if not 'darwin' == sys.platform:
+        #     # on Ubuntu toolbar, docs and editor area look as one widget. Ugly
+        #     # Therefore it is separated with line. On Mac seems OK
+        #     # I can't predict, how it will look on other platforms, therefore line is used for all, except Mac
+        #     toolBarStyleSheet = "QToolBar {border: 0; border-bottom-width: 1; border-bottom-style: solid}"""
+        #     self._topToolBar.setStyleSheet(toolBarStyleSheet)
 
         area = Qt.BottomToolBarArea if self._isMenuEmbeddedToTaskBar() else Qt.TopToolBarArea
         self.addToolBar(area, self._topToolBar)
@@ -217,16 +217,20 @@ class MainWindow(QMainWindow):
         def menu(path, name, icon, visible=True):
             """Subfunction for create a menu in the main menu"""
             menuObject = core.actionManager().addMenu(path, name)
-            if icon:
-                menuObject.setIcon(QIcon(':/enkiicons/' + icon))
+            if icon and (sys.platform != 'darwin' and sys.platform != 'win32' ):
+                menuObject.setIcon(QIcon.fromTheme(icon))
             self._createdMenuPathes.append(path)
             if not visible:
                 menuObject.setVisible(False)
 
         def action(path, name, icon, shortcut, tooltip, enabled, checkable=False):  # pylint: disable=R0913
             """Subfunction for create an action in the main menu"""
-            if icon:  # has icon
-                actObject = core.actionManager().addAction(path, name, QIcon(':/enkiicons/' + icon), shortcut)
+            if icon and (sys.platform != 'darwin' and sys.platform != 'win32' ):  # has icon
+                actObject = core.actionManager().addAction(
+                    path,
+                    name,
+                    QIcon.fromTheme(icon),
+                    shortcut)
             else:
                 actObject = core.actionManager().addAction(path, name, shortcut=shortcut)
             if tooltip:
@@ -241,39 +245,31 @@ class MainWindow(QMainWindow):
 
         # pylint: disable=C0301
         # enable long lines for menu items
-        # Menu or action path                          Name                     Icon            Shortcut        Hint                     enabled  checkable
+        # Menu or action path                          Name                     Icon                    Shortcut        Hint                     enabled  checkable
         menu  ("mFile",                               "File"                  , ""           )
-        action("mFile/aOpenProject",                  "Open Pro&ject..."      , "open.png",     "Shift+Ctrl+O" ,"Open a project"         , True)
+        action("mFile/aOpenProject",                  "Open Pro&ject..."      , "project-open",         "Shift+Ctrl+O" ,"Open a project"         , True)
         separator("mFile")
-        menu  ("mFile/mUndoClose",                    "Undo Close"            , "recents.png")
+        menu  ("mFile/mUndoClose",                    "Undo Close"            , "document-open-recent")
         separator("mFile")
-        action("mFile/aNew",                          "&New file..."          , "new.png",      'Ctrl+N',       "New file"               , True)
-        action("mFile/aOpen",                         "&Open..."              , "open.png",     "Ctrl+O" ,      "Open a file"            , True)
-        menu  ("mFile/mSave",                         "&Save"                 , "save.png"   )
-        action("mFile/mSave/aCurrent",                "&Save"                 , "save.png" ,    "Ctrl+S" ,      "Save the current file"  , False)
-        action("mFile/mSave/aSaveAs",                 "Save As..."            , "save.png" ,    "Ctrl+Alt+S" ,  ""                           , False)
-        action("mFile/mSave/aAll",                    "Save &All"             , "saveall.png",  'Shift+Ctrl+S', "Save all files"         , False)
-        menu  ("mFile/mReload",                       "&Reload"               , "reload.png"   )
-        action("mFile/mReload/aCurrent",              "Reload"                , "reload.png"  , 'F5',           "Reload the current file", False)
-        action("mFile/mReload/aAll",                  "Reload All"            , "reload.png"  , 'Shift+F5',     "Reload all files"       , True)
-        menu  ("mFile/mClose",                        "&Close"                , "close.png"  )
-        action("mFile/mClose/aCurrent",               "&Close"                , "close.png",    "Ctrl+W",       "Close the current file" , False)
-        action("mFile/mClose/aAll",                   "Close &All"            , "closeall.png", 'Shift+Ctrl+W', "Close all files"        , False)
-        menu  ("mFile/mFileSystem",                   "File System"           , "filesystem.png")
-        action("mFile/mFileSystem/aRename",           "Rename"                , "edit.png",     '',             "Rename current file"    , False)
+        action("mFile/aNew",                          "&New file..."          , "document-new",          'Ctrl+N',       "New file"               , True)
+        action("mFile/aOpen",                         "&Open..."              , "document-open",        "Ctrl+O" ,      "Open a file"            , True)
+        menu  ("mFile/mSave",                         "&Save"                 , "document-save"   )
+        action("mFile/mSave/aCurrent",                "&Save"                 , "document-save" ,        "Ctrl+S" ,      "Save the current file"  , False)
+        action("mFile/mSave/aSaveAs",                 "Save As..."            , "document-save-as" ,        "Ctrl+Alt+S" ,  ""                           , False)
+        action("mFile/mSave/aAll",                    "Save &All"             , "document-save-all",      'Shift+Ctrl+S', "Save all files"         , False)
+        menu  ("mFile/mReload",                       "&Reload"               , "refresh"   )
+        action("mFile/mReload/aCurrent",              "Reload"                , "refresh"  ,     'F5',           "Reload the current file", False)
+        action("mFile/mReload/aAll",                  "Reload All"            , "update-none"  ,     'Shift+F5',     "Reload all files"       , True)
+        menu  ("mFile/mClose",                        "&Close"                , "document-close"  )
+        action("mFile/mClose/aCurrent",               "&Close"                , "document-close",    "Ctrl+W",       "Close the current file" , False)
+        action("mFile/mClose/aAll",                   "Close &All"            , "project-development-close", 'Shift+Ctrl+W', "Close all files"        , False)
+        menu  ("mFile/mFileSystem",                   "File System"           , "drive-harddisk")
+        action("mFile/mFileSystem/aRename",           "Rename"                , "document-edit",     '',             "Rename current file"    , False)
         if platform.system() != 'Windows':
-            action("mFile/mFileSystem/aToggleExecutable", "Make executable"   , "",            '',             "Toggle executable mode" , False)
+            action("mFile/mFileSystem/aToggleExecutable", "Make executable"   , "text-x-script",            '',             "Toggle executable mode" , False)
         separator("mFile")
-        action("mFile/aQuit",                         "Quit"                  , "quit.png",     'Ctrl+Q',       "Quit"                  , True)
+        action("mFile/aQuit",                         "Quit"                  , "application-exit",     'Ctrl+Q',       "Quit"                  , True)
         separator("mFile")
-
-        menu  ("mView",                               "View"                  , ""           )
-        action("mView/aShowIncorrectIndentation",      "Show incorrect indentation", "",       "",              ""                       , False, True)
-        action("mView/aShowAnyWhitespaces",     "Show any whitespace",        "",              "",              ""                       , False, True)
-        separator("mView")
-        action("mView/aHideAll",                      "Hide all / Restore"   , "",             "Shift+Esc",   "Hide all widgets"          , True)
-        action("mView/aOpenMainMenu",                 "Open main menu"       , "",             "F10",         ""                          , True)
-        separator("mView")
 
         menu  ("mEdit",                               "Edit"                  , ""           )
         action("mEdit/aStripTrailingWhitespace",      "Strip trailing whitespace when saving", "", "",            ""                   , True, True)
@@ -283,18 +279,27 @@ class MainWindow(QMainWindow):
         separator("mEdit")
         action("mEdit/aEnableVimMode",                "Enable Vim mode"       , "",             "",             ""                      , False, True)
 
-        menu  ("mNavigation",                          "Navigation"            , ""          )
-        action("mNavigation/aFocusCurrentDocument",   "Focus to editor"       , "text.png",     "Ctrl+Return",  "Focus current document" , False)
+        menu  ("mView",                               "View"                  , ""           )
+        action("mView/aShowIncorrectIndentation",      "Show incorrect indentation", "",       "",              ""                       , False, True)
+        action("mView/aShowAnyWhitespaces",     "Show any whitespace",        "",              "",              ""                       , False, True)
+        separator("mView")
+        action("mView/aHideAll",                      "Hide all / Restore"   , "",             "Shift+Esc",   "Hide all widgets"          , True)
+        action("mView/aOpenMainMenu",                 "Open main menu"       , "",             "F10",         ""                          , True)
+        separator("mView")
 
-        menu  ("mNavigation/mSearchReplace",           "&Search && Replace"    , "search-replace-directory.png")
-        menu  ("mNavigation/mBookmarks",               "&Bookmarks"            , "bookmark.png")
+
+        menu  ("mNavigation",                          "Navigation"            , ""          )
+        action("mNavigation/aFocusCurrentDocument",   "Focus to editor"       , "story-editor",     "Ctrl+Return",  "Focus current document" , False)
+
+        menu  ("mNavigation/mSearchReplace",           "&Search && Replace"    , "search")
+        menu  ("mNavigation/mBookmarks",               "&Bookmarks"            , "bookmark")
 
         separator("mNavigation"),
-        action("mNavigation/aNext",                   "&Next file"            , "next.png",     "Ctrl+PgDown",    "Next file"              , False)
-        action("mNavigation/aPrevious",               "&Previous file"        , "previous.png", "Ctrl+PgUp",     "Previous file"          , False)
+        action("mNavigation/aNext",                   "&Next file"            , "go-next",     "Ctrl+PgDown",    "Next file"              , False)
+        action("mNavigation/aPrevious",               "&Previous file"        , "go-previous", "Ctrl+PgUp",     "Previous file"          , False)
         separator("mNavigation")
-        action("mNavigation/aGoto",                   "Go go line..."         , "goto.png",     "Ctrl+G",       "Go to line..."          , False)
-        menu  ("mNavigation/mFileBrowser",            "File browser"          , ':/enkiicons/open.png', visible=False)
+        action("mNavigation/aGoto",                   "Go to line..."         , "go-jump",     "Ctrl+G",       "Go to line..."          , False)
+        menu  ("mNavigation/mFileBrowser",            "File browser"          , 'system-file-manager.svg', visible=False)
         menu  ("mNavigation/mScroll",                 "Scroll file"           , '')
 
         menu  ("mSettings",                           "Settings"              , ""           )
