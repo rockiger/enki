@@ -11,7 +11,7 @@ class Plugin:
     def __init__(self):
         self._action = core.actionManager().addAction('mHelp/aVimTutor',
                                                       'Vim mode tutorial',
-                                                      QIcon(":/enkiicons/vim.png"))
+                                                      QIcon.fromTheme("vim"))
         self._action.triggered.connect(self._onTriggered)
 
     def terminate(self):

@@ -95,7 +95,7 @@ class Controller(QObject):
             """
             actObject = core.actionManager().addAction(menu + '/' + path,
                                                        self.tr(text),
-                                                       QIcon(':/enkiicons/' + icon),
+                                                       QIcon.fromTheme(icon),
                                                        shortcut)
             actObject.setToolTip(self.tr(tooltip))
             if slot:
@@ -113,46 +113,46 @@ class Controller(QObject):
         # List if search actions.
         # First acition created by MainWindow, so, do not fill text
         createAction("aSearchFile", "&Search...",
-                     "search.png", "Ctrl+F",
+                     "search", "Ctrl+F",
                      "Search in the current file...",
                      self._onModeSwitchTriggered, MODE_SEARCH)
         createAction("aSearchPrevious", "Search &Previous",
-                     "previous.png", "Shift+F3",
+                     "go-up-search", "Shift+F3",
                      "Search previous occurrence",
                      self._onSearchPrevious, None,
                      False)  # will be connected to search widget, when it is created
         createAction("aSearchNext", "Search &Next",
-                     "next.png", "F3",
+                     "go-down-search", "F3",
                      "Search next occurrence",
                      self._onSearchNext, None,
                      False)  # will be connected to search widget, when it is created
         createAction("aReplaceFile", "&Replace...",
-                     "replace.png", "Ctrl+R",
+                     "edit-find-replace", "Ctrl+R",
                      "Replace in the current file...",
                      self._onModeSwitchTriggered, MODE_REPLACE)
         createAction("aSearchWordBackward", "Search word under cursor backward",
-                     "less.png", searchWordBackwardShortcut,
+                     "", searchWordBackwardShortcut,
                      "",
                      self._onSearchCurrentWordBackward, None)
         createAction("aSearchWordForward", "Search word under cursor forward",
-                     "bigger.png", searchWordForwardShortcut,
+                     "", searchWordForwardShortcut,
                      "",
                      self._onSearchCurrentWordForward, None)
         self._menuSeparator = core.actionManager().menu(menu).addSeparator()
         createAction("aSearchDirectory", "Search in &Directory...",
-                     "search-replace-directory.png", "Ctrl+Shift+F",
+                     "", "Ctrl+Shift+F",
                      "Search in directory...",
                      self._onModeSwitchTriggered, MODE_SEARCH_DIRECTORY)
         createAction("aReplaceDirectory", "Replace in Director&y...",
-                     "search-replace-directory.png", "Ctrl+Shift+R",
+                     "", "Ctrl+Shift+R",
                      "Replace in directory...",
                      self._onModeSwitchTriggered, MODE_REPLACE_DIRECTORY)
         createAction("aSearchOpenedFiles", "Search in &Opened Files...",
-                     "search-replace-opened-files.png",
+                     "",
                      "Ctrl+Alt+F", "Search in opened files...",
                      self._onModeSwitchTriggered, MODE_SEARCH_OPENED_FILES)
         createAction("aReplaceOpenedFiles", "Replace in Open&ed Files...",
-                     "search-replace-opened-files.png", "Ctrl+Alt+R",
+                     "", "Ctrl+Alt+R",
                      "Replace in opened files...",
                      self._onModeSwitchTriggered, MODE_REPLACE_OPENED_FILES)
 

@@ -95,7 +95,7 @@ class Plugin:
         """
         action = core.actionManager().addAction("mTools/aOpenTerm",
                                                 ACTION_TEXT,
-                                                QIcon(':enkiicons/console.png'))
+                                                QIcon.fromTheme('utilities-terminal'))
         core.actionManager().setDefaultShortcut(action, "Ctrl+T")
         action.triggered.connect(self._openTerm)
 

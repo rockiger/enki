@@ -48,7 +48,7 @@ class Plugin:
 
         self._action = self._actionManager.addAction("mSettings/aApplicationShortcuts",
                                                      tr("Application shortcuts..."),
-                                                     QIcon(':/enkiicons/shortcuts.png'))
+                                                     QIcon.fromTheme('accessories-character-map'))
         self._action.setStatusTip(tr("Edit application shortcuts..."))
         self._action.triggered.connect(self._onEditShortcuts)
 

@@ -10,7 +10,7 @@ import os.path
 
 from PyQt5 import Qt
 from PyQt5.QtCore import QObject
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QStyle
 from PyQt5.QtGui import QIcon
 from PyQt5 import uic
 
@@ -30,17 +30,17 @@ class Plugin(QObject):
         def createAction(menuItem, text, icon, tab):
             """Create a menu action and connect it to the slot
             """
-            action = core.actionManager().addAction("mHelp/%s" % menuItem, text, QIcon(':enkiicons/' + icon))
+            action = core.actionManager().addAction("mHelp/%s" % menuItem, text, QIcon.fromTheme(icon))
             slot = lambda: UIAbout(core.mainWindow(), tab).exec_()  # pylint: disable=W0108
             action.triggered.connect(slot)
             return action
 
-        self._createdActions = [createAction('aAbout', self.tr('&About...'), 'enki.png', 'about'),
-                                createAction('aHelp', self.tr('&Help...'), 'help.png', 'help'),
-                                createAction('aReportBug', self.tr('Report &Bug...'), 'debugger.png', 'bug'),
-                                createAction('aDonate', self.tr('&Donate...'), 'add.png', 'donate')]
+        self._createdActions = [createAction('aAbout', self.tr('&About...'), 'help-about', 'about'),
+                                createAction('aHelp', self.tr('&Help...'), 'help', 'help'),
+                                createAction('aReportBug', self.tr('Report &Bug...'), 'tools-report-bug', 'bug'),
+                                createAction('aDonate', self.tr('&Donate...'), 'help-donate', 'donate')]
 
-        action = core.actionManager().addAction("mHelp/aAboutQt", self.tr('About &Qt...'), QIcon(':enkiicons/qt.png'))
+        action = core.actionManager().addAction("mHelp/aAboutQt", self.tr('About &Qt...'), core.mainWindow().style().standardIcon(getattr(QStyle, "SP_TitleBarMenuButton")))
         action.triggered.connect(QApplication.instance().aboutQt)
         self._createdActions.append(action)
 

@@ -91,7 +91,10 @@ class Core(QObject):
 
         qInitResources()
 
-        QApplication.instance().setWindowIcon(QIcon(':/enkiicons/logo/enki.svg'))
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
+        logo_path = os.path.join(scriptDir,'../../icons/logo/mamba.svg')
+        print (logo_path)
+        QApplication.instance().setWindowIcon(QIcon(logo_path))
 
         self._initConfigDir()
 
