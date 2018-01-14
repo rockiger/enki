@@ -122,6 +122,7 @@ class ActionManager(QObject):
             action = QAction(icon, action, parentAction)
         else:
             action.setParent(parentAction)
+            action.setIcon(icon)
 
         if shortcut is not None:
             action.setShortcut(shortcut)

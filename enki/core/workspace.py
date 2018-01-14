@@ -18,7 +18,7 @@ import stat
 
 from PyQt5.QtWidgets import QAction, QApplication, QDialog, QDialogButtonBox, \
     QListWidgetItem, QMessageBox, QStackedWidget, QShortcut, QAbstractButton
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QIcon
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QEvent, Qt  # pylint: disable=E0611
 from PyQt5 import uic
@@ -221,40 +221,40 @@ class Workspace(QStackedWidget):
 
     _QUTEPART_ACTIONS = (
 
-        ('mEdit/mCopyPasteLines/aCopy', 'copyLineAction'),
-        ('mEdit/mCopyPasteLines/aPaste', 'pasteLineAction'),
-        ('mEdit/mCopyPasteLines/aCut', 'cutLineAction'),
-        ('mEdit/mCopyPasteLines/aDuplicate', 'duplicateLineAction'),
+        ('mEdit/mCopyPasteLines/aCopy', 'copyLineAction', "edit-copy"),
+        ('mEdit/mCopyPasteLines/aPaste', 'pasteLineAction', "edit-paste"),
+        ('mEdit/mCopyPasteLines/aCut', 'cutLineAction', "edit-cut"),
+        ('mEdit/mCopyPasteLines/aDuplicate', 'duplicateLineAction', "edit-duplicate"),
 
-        ('mEdit/mIndentation/aIncreaseIndent', 'increaseIndentAction'),
-        ('mEdit/mIndentation/aDecreaseIndent', 'decreaseIndentAction'),
-        ('mEdit/mIndentation/aAutoIndent', 'autoIndentLineAction'),
-        ('mEdit/mIndentation/aIndentWithSpace', 'indentWithSpaceAction'),
-        ('mEdit/mIndentation/aUnIndentWithSpace', 'unIndentWithSpaceAction'),
+        ('mEdit/mIndentation/aIncreaseIndent', 'increaseIndentAction', "format-indent-more"),
+        ('mEdit/mIndentation/aDecreaseIndent', 'decreaseIndentAction', "format-indent-less"),
+        ('mEdit/mIndentation/aAutoIndent', 'autoIndentLineAction', ""),
+        ('mEdit/mIndentation/aIndentWithSpace', 'indentWithSpaceAction', "format-indent-more"),
+        ('mEdit/mIndentation/aUnIndentWithSpace', 'unIndentWithSpaceAction', "format-indent-less"),
 
-        ('mEdit/aSeparatorAfterSubmenus', None),
+        ('mEdit/aSeparatorAfterSubmenus', None, ""),
 
-        ('mEdit/aUndo', 'undoAction'),
-        ('mEdit/aRedo', 'redoAction'),
+        ('mEdit/aUndo', 'undoAction', "edit-undo"),
+        ('mEdit/aRedo', 'redoAction', "edit-redo"),
 
-        ('mEdit/aMoveLineUp', 'moveLineUpAction'),
-        ('mEdit/aMoveLineDown', 'moveLineDownAction'),
-        ('mEdit/aDeleteLine', 'deleteLineAction'),
+        ('mEdit/aMoveLineUp', 'moveLineUpAction', "go-up"),
+        ('mEdit/aMoveLineDown', 'moveLineDownAction', "go-down"),
+        ('mEdit/aDeleteLine', 'deleteLineAction', "edit-table-delete-row"),
 
-        ('mEdit/aSeparatorBeforeCompletion', None),
+        ('mEdit/aSeparatorBeforeCompletion', None, ""),
 
-        ('mEdit/aInvokeCompletion', 'invokeCompletionAction'),
+        ('mEdit/aInvokeCompletion', 'invokeCompletionAction', ""),
 
-        ('mNavigation/mScroll/aUp', 'scrollUpAction'),
-        ('mNavigation/mScroll/aDown', 'scrollDownAction'),
-        ('mNavigation/mScroll/aSelectAndScrollUp', 'selectAndScrollUpAction'),
-        ('mNavigation/mScroll/aSelectAndScrollDown', 'selectAndScrollDownAction'),
+        ('mNavigation/mScroll/aUp', 'scrollUpAction', ""),
+        ('mNavigation/mScroll/aDown', 'scrollDownAction', ""),
+        ('mNavigation/mScroll/aSelectAndScrollUp', 'selectAndScrollUpAction', ""),
+        ('mNavigation/mScroll/aSelectAndScrollDown', 'selectAndScrollDownAction', ""),
 
-        ('mFile/aPrint', 'printAction'),
+        ('mFile/aPrint', 'printAction', "document-print"),
 
-        ('mNavigation/mBookmarks/aToggle', 'toggleBookmarkAction'),
-        ('mNavigation/mBookmarks/aPrevious', 'prevBookmarkAction'),
-        ('mNavigation/mBookmarks/aNext', 'nextBookmarkAction'),
+        ('mNavigation/mBookmarks/aToggle', 'toggleBookmarkAction', ""),
+        ('mNavigation/mBookmarks/aPrevious', 'prevBookmarkAction', ""),
+        ('mNavigation/mBookmarks/aNext', 'nextBookmarkAction', ""),
     )
 
     def __init__(self, mainWindow):
@@ -383,17 +383,17 @@ class Workspace(QStackedWidget):
                 print('Failed to change directory:', str(ex), file=sys.stderr)
 
         if old is not None:
-            for path, name in self._QUTEPART_ACTIONS:
+            for path, name, icon in self._QUTEPART_ACTIONS:
                 core.actionManager().removeAction(path)
 
         if new is not None:
-            for path, name in self._QUTEPART_ACTIONS:
+            for path, name, icon in self._QUTEPART_ACTIONS:
                 if name is not None:
-                    core.actionManager().addAction(path, getattr(new.qutepart, name))
+                    core.actionManager().addAction(path, getattr(new.qutepart, name), QIcon.fromTheme(icon))
                 else:
                     act = QAction(self)
                     act.setSeparator(True)
-                    core.actionManager().addAction(path, act)
+                    core.actionManager().addAction(path, act, QIcon.fromTheme(icon))
 
     def currentDocument(self):
         """Returns currently active (focused) document. None, if no documents are opened

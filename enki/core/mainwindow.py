@@ -217,7 +217,7 @@ class MainWindow(QMainWindow):
         def menu(path, name, icon, visible=True):
             """Subfunction for create a menu in the main menu"""
             menuObject = core.actionManager().addMenu(path, name)
-            if icon and (sys.platform != 'darwin' and sys.platform != 'win32' ):
+            if icon:
                 menuObject.setIcon(QIcon.fromTheme(icon))
             self._createdMenuPathes.append(path)
             if not visible:
@@ -225,7 +225,7 @@ class MainWindow(QMainWindow):
 
         def action(path, name, icon, shortcut, tooltip, enabled, checkable=False):  # pylint: disable=R0913
             """Subfunction for create an action in the main menu"""
-            if icon and (sys.platform != 'darwin' and sys.platform != 'win32' ):  # has icon
+            if icon:  # has icon
                 actObject = core.actionManager().addAction(
                     path,
                     name,
@@ -292,7 +292,7 @@ class MainWindow(QMainWindow):
         action("mNavigation/aFocusCurrentDocument",   "Focus to editor"       , "story-editor",     "Ctrl+Return",  "Focus current document" , False)
 
         menu  ("mNavigation/mSearchReplace",           "&Search && Replace"    , "search")
-        menu  ("mNavigation/mBookmarks",               "&Bookmarks"            , "bookmark")
+        menu  ("mNavigation/mBookmarks",               "&Bookmarks"            , "bookmarks")
 
         separator("mNavigation"),
         action("mNavigation/aNext",                   "&Next file"            , "go-next",     "Ctrl+PgDown",    "Next file"              , False)
