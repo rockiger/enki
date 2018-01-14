@@ -299,7 +299,7 @@ class MainWindow(QMainWindow):
         action("mNavigation/aPrevious",               "&Previous file"        , "go-previous", "Ctrl+PgUp",     "Previous file"          , False)
         separator("mNavigation")
         action("mNavigation/aGoto",                   "Go to line..."         , "go-jump",     "Ctrl+G",       "Go to line..."          , False)
-        menu  ("mNavigation/mFileBrowser",            "File browser"          , 'system-file-manager.svg', visible=False)
+        menu  ("mNavigation/mFileBrowser",            "File browser"          , 'system-file-manager', visible=False)
         menu  ("mNavigation/mScroll",                 "Scroll file"           , '')
 
         menu  ("mSettings",                           "Settings"              , ""           )

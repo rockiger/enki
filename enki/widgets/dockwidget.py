@@ -54,10 +54,10 @@ class _TitleBar(QToolBar):
 
         # The pinned/unpinned control.
         self.tbUnPinned = QToolButton()
-        icon = QIcon()
+        icon = self.style().standardIcon(getattr(QStyle, "SP_TitleBarNormalButton"))
         # To do: Replace with my own image and put in resources.
-        icon.addPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'unpinned.png')), QIcon.Normal, QIcon.On)
-        icon.addPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'pinned.png')), QIcon.Normal, QIcon.Off)
+        #icon.addPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'unpinned.png')), QIcon.Normal, QIcon.On)
+        #icon.addPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'pinned.png')), QIcon.Normal, QIcon.Off)
         self.tbUnPinned.setIcon(icon)
         self.tbUnPinned.setCheckable(True)
         self._configName = parent.windowTitle() + " pinned"

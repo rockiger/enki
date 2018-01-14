@@ -8,6 +8,7 @@ This class:
 
 Don't use this class if you need classical line edit
 """
+import os
 
 from PyQt5.QtCore import pyqtSignal, Qt, QSize
 from PyQt5.QtWidgets import QLineEdit, QStyle, QToolButton, QStyleOptionFrame
@@ -38,7 +39,7 @@ class LineEdit(QLineEdit):
         self._promptText = ''
 
         self._tbClear = QToolButton(self)
-        self._tbClear.setIcon(QIcon(":enkiicons/edit-clear-rtl.png"))
+        self._tbClear.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'edit-clear.svg'))) # change to edit-clear.svg, resource needs to be changed
         self._tbClear.setToolTip(tr("Clear"))
         self._tbClear.setStyleSheet("QToolButton { border: none; padding: 0px; }")
         self._tbClear.setCursor(Qt.ArrowCursor)
