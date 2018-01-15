@@ -13,7 +13,7 @@ from PyQt5.QtCore import QDir, QModelIndex, QObject, Qt, QTimer, \
 from PyQt5.QtWidgets import QAction, QCompleter, QDirModel, \
     QFrame, QFileSystemModel, \
     QComboBox, \
-    QShortcut, QTreeView, QVBoxLayout, QWidget
+    QShortcut, QTreeView, QVBoxLayout, QWidget, QStyle
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtCore import QSortFilterProxyModel, QItemSelectionModel
 
@@ -203,6 +203,7 @@ class SmartHistory(QObject):
         self._historyIndex = -1
 
         fileBrowser.titleBarWidget().addSeparator()
+        aBack_icon = core.mainWindow().style().standardIcon(getattr(QStyle, "SP_ArrowBack"))
         self._aBack = QAction(QIcon(':enkiicons/previous.png'),
                               self.tr("Back"),
                               self)
@@ -211,7 +212,8 @@ class SmartHistory(QObject):
         core.actionManager().addAction("mNavigation/mFileBrowser/aBack", self._aBack)
         self._aBack.triggered.connect(self._onTbBackTriggered)
 
-        self._aForward = QAction(QIcon(':enkiicons/next.png'),
+        aForward_icon = core.mainWindow().style().standardIcon(getattr(QStyle, "SP_ArrowForward"))
+        self._aForward = QAction(aForward_icon,
                                  self.tr("Forward"),
                                  self)
         self._aForward.setShortcut('Alt+Right')
@@ -512,7 +514,8 @@ class ComboBox(QComboBox):
         self._count = 0
 
         # Show popup action
-        self._showPopupAction = QAction(QIcon(':enkiicons/filtered.png'), "File browser history", self)
+        popup_icon = core.mainWindow().style().standardIcon(getattr(QStyle, "SP_FileDialogListView"))
+        self._showPopupAction = QAction(popup_icon, "File browser history", self)
         self._showPopupAction.setShortcut('Ctrl+H')
         core.actionManager().addAction("mNavigation/mFileBrowser/aMenuShow", self._showPopupAction)
         self._showPopupAction.triggered.connect(self._onShowPopup)
@@ -581,7 +584,8 @@ class DockFileBrowser(DockWidget):
     """  # pylint: disable=W0105
 
     def __init__(self, parent):
-        DockWidget.__init__(self, parent, "&File Browser", QIcon(':/enkiicons/open.png'), "Alt+F")
+        icon = core.mainWindow().style().standardIcon(getattr(QStyle, "SP_DirIcon"))
+        DockWidget.__init__(self, parent, "&File Browser", icon, "Alt+F")
 
         self._comboBox = None
         self._tree = None
@@ -643,7 +647,8 @@ class DockFileBrowser(DockWidget):
         vertLayout.addWidget(self._tree)
 
         # cd up button
-        self._aCdUp = QAction(QIcon(':enkiicons/go-up.png'),
+        up_icon = core.mainWindow().style().standardIcon(getattr(QStyle, "SP_ArrowUp"))
+        self._aCdUp = QAction(up_icon,
                               self.tr("Up"),
                               self)
         self.titleBarWidget().addAction(self._aCdUp)
