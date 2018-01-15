@@ -146,7 +146,7 @@ class EolIndicatorAndSwitcher(QToolButton):
         document = core.workspace().currentDocument()
         document.qutepart.eol = newEol
         document.qutepart.document().setModified(True)
-        self._setEolMode(document.qutepart.eol)
+        self._setEolMode(document.qutepart.eol, newEol)
 
     def _setEolMode(self, document, mode):
         """Change EOL mode on GUI
