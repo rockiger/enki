@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
+    <width>451</width>
     <height>300</height>
    </rect>
   </property>
@@ -20,7 +20,16 @@
       <string>End Of Line symbol</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
        <number>5</number>
       </property>
       <property name="spacing">
@@ -43,14 +52,14 @@
         <item>
          <widget class="QRadioButton" name="rbEolUnix">
           <property name="text">
-           <string>Unix</string>
+           <string>&amp;Unix</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QRadioButton" name="rbEolMac">
           <property name="text">
-           <string>Macintosh</string>
+           <string>&amp;Macintosh</string>
           </property>
          </widget>
         </item>
@@ -121,19 +130,6 @@
       </item>
      </layout>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>176</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

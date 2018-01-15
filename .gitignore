@@ -11,6 +11,7 @@ tmp
 MANIFEST
 .idea
 sphinx-enki-info.txt
+.directory
 
 # Pip/setuptools-generated files.
 *.egg-info/

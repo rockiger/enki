@@ -83,7 +83,7 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="numDigits">
+          <property name="digitCount">
            <number>2</number>
           </property>
           <property name="segmentStyle">
@@ -102,19 +102,6 @@
       <string>Try to detect indentation automatically</string>
      </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="spacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>544</width>
-       <height>214</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

@@ -48,15 +48,9 @@
       <property name="text">
        <string>Editor</string>
       </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>REPL</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Lint</string>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../icons/text-editor.svg</normaloff>../../icons/text-editor.svg</iconset>
       </property>
      </item>
     </widget>
@@ -69,10 +63,17 @@
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="pIgnoredFiles">
         <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>&lt;h2&gt;Ignored Files&lt;/h2&gt;</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QGroupBox" name="gbFilesToHide">
            <property name="title">
@@ -123,35 +124,15 @@
         </layout>
        </widget>
        <widget class="QWidget" name="pEditor">
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Select a page in the tree</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>403</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-        <zorder>label_7</zorder>
-        <zorder>verticalSpacer_2</zorder>
-        <zorder>dbbButtons</zorder>
-        <zorder>verticalSpacer_2</zorder>
-        <zorder>verticalSpacer_2</zorder>
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6"/>
        </widget>
        <widget class="QWidget" name="pLint">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QLabel" name="label">
@@ -179,6 +160,9 @@
         </layout>
        </widget>
        <widget class="QWidget" name="pRepl">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <widget class="QLabel" name="label_6">
@@ -220,8 +204,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>twMenu</zorder>
-  <zorder>dbbButtons</zorder>
  </widget>
  <resources>
   <include location="../../icons/enkiicons.qrc"/>

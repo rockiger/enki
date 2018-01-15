@@ -11,8 +11,9 @@ from the core for make it smaller.
 
 import os
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea, QLabel
 from PyQt5 import uic
+from PyQt5.QtCore import Qt
 
 from enki.core.core import core
 
@@ -144,17 +145,41 @@ class Plugin:
         """UI settings dialogue is about to execute.
         Add own options
         """
+        editorSettingsPage = dialog._pageForItem['Editor'] #aka self
+
+        scrollArea = QScrollArea(editorSettingsPage)
+        scrollArea.setWidgetResizable(True)
+        scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        baseLayout = editorSettingsPage.layout()
+        baseLayout.setAlignment(Qt.AlignTop)
+        baseWidget = QWidget()
+        scrollArea.setWidget(baseWidget)
+
+        baseLayout.addWidget(QLabel("<h2>Editor Settings</h2>"))
+        baseLayout.addWidget(scrollArea)
+
+        vbox = QVBoxLayout()
+        baseWidget.setLayout(vbox)
+
         fontWidget = _SettingsPageWidget('Font.ui', dialog)
         indentWidget = _SettingsPageWidget('Indentation.ui', dialog)
         complWidget = _SettingsPageWidget('Autocompletion.ui', dialog)
         eolWidget = _SettingsPageWidget('Eol.ui', dialog)
         longLinesWidget = _SettingsPageWidget('LongLines.ui', dialog)
 
-        dialog.appendPage("Editor/Font", fontWidget)
-        dialog.appendPage("Editor/Indentation", indentWidget)
-        dialog.appendPage("Editor/Autocompletion", complWidget)
-        dialog.appendPage("Editor/EOL", eolWidget)
-        dialog.appendPage("Editor/Long Lines", longLinesWidget)
+        vbox.addWidget(fontWidget)
+        vbox.addWidget(longLinesWidget)
+        vbox.addWidget(indentWidget)
+        vbox.addWidget(complWidget)
+        vbox.addWidget(eolWidget)
+        vbox.addWidget(longLinesWidget)
+
+        # dialog.appendPage("Editor/Font", fontWidget)
+        # dialog.appendPage("Editor/Indentation", indentWidget)
+        # dialog.appendPage("Editor/Autocompletion", complWidget)
+        # dialog.appendPage("Editor/EOL", eolWidget)
+        # dialog.appendPage("Editor/Long Lines", longLinesWidget)
 
         cfg = core.config()
         options = \

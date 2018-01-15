@@ -124,8 +124,6 @@ class EolIndicatorAndSwitcher(QToolButton):
 
         def addAction(text, eolMode):
             """Add an action to the EOL menu"""
-
-            print(os.path.join( os.path.dirname(os.path.abspath(__file__)), self._ICON_FOR_MODE[eolMode]))
             action = self.menu().addAction(
                 QIcon(os.path.join(os.path.dirname(os.path.abspath(__file__)), self._ICON_FOR_MODE[eolMode])),
                 text)
