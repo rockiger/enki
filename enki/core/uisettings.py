@@ -306,8 +306,9 @@ class UISettings(QDialog):
 
         # Expand all tree widget items
         self._pageForItem = {"Ignored files": self.pIgnoredFiles,
-                             "REPL": self.pRepl,
-                             "Lint": self.pLint,
+                             # should not created if now linter or Repl available
+                             #"REPL": self.pRepl,
+                             #"Lint": self.pLint,
                              "Editor": self.pEditor}
 
         # resize to minimum size
