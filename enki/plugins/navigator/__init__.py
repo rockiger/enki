@@ -258,7 +258,12 @@ class Plugin(QObject):
         """
         widget = SettingsWidget(dialog)
 
-        dialog.appendPage("Navigator", widget, QIcon(':/enkiicons/goto.png'))
+        icon = QIcon.fromTheme(
+                    "web-browser",
+                    QIcon(os.path.join(
+                        os.path.dirname(os.path.abspath(__file__)),
+                        'navigator.svg')))
+        dialog.appendPage("Navigator", widget, icon)
 
         # Options
         dialog.appendOption(TextOption(dialog, core.config(),

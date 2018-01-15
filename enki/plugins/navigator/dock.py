@@ -5,7 +5,7 @@ Contains tag model class
 import fnmatch
 
 from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QTimer, QAbstractItemModel, QModelIndex
-from PyQt5.QtWidgets import QApplication, QVBoxLayout, QLabel, QTreeView, QWidget
+from PyQt5.QtWidgets import QApplication, QVBoxLayout, QLabel, QTreeView, QWidget, QStyle
 from PyQt5.QtGui import QBrush, QColor, QIcon
 
 from enki.widgets.dockwidget import DockWidget
@@ -257,7 +257,8 @@ def _findFirstMatching(wildcard, filteredTags):
 class NavigatorDock(DockWidget):
 
     def __init__(self):
-        DockWidget.__init__(self, core.mainWindow(), '&Navigator', QIcon(':/enkiicons/goto.png'), "Alt+N")
+        icon = core.mainWindow().style().standardIcon(getattr(QStyle, "SP_FileDialogDetailedView"))
+        DockWidget.__init__(self, core.mainWindow(), '&Navigator', icon, "Alt+N")
 
         self._tags = []
 
