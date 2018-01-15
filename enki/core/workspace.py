@@ -221,6 +221,14 @@ class Workspace(QStackedWidget):
 
     _QUTEPART_ACTIONS = (
 
+        ('mEdit/aUndo', 'undoAction', "edit-undo"),
+        ('mEdit/aRedo', 'redoAction', "edit-redo"),
+        ('mEdit/aSeparatorAfterUndoRedo', None, ""),
+        # Need dedicated action in qutepart
+        # ('mEdit/aCopy', 'copy', "edit-copy"),
+        # ('mEdit/aPaste', 'paste', "edit-paste"),
+        # ('mEdit/aCut', 'cut', "edit-paste"),
+
         ('mEdit/mCopyPasteLines/aCopy', 'copyLineAction', "edit-copy"),
         ('mEdit/mCopyPasteLines/aPaste', 'pasteLineAction', "edit-paste"),
         ('mEdit/mCopyPasteLines/aCut', 'cutLineAction', "edit-cut"),
@@ -234,8 +242,6 @@ class Workspace(QStackedWidget):
 
         ('mEdit/aSeparatorAfterSubmenus', None, ""),
 
-        ('mEdit/aUndo', 'undoAction', "edit-undo"),
-        ('mEdit/aRedo', 'redoAction', "edit-redo"),
 
         ('mEdit/aMoveLineUp', 'moveLineUpAction', "go-up"),
         ('mEdit/aMoveLineDown', 'moveLineDownAction', "go-down"),

@@ -59,7 +59,7 @@
           </font>
          </property>
          <property name="text">
-          <string notr="true">Title</string>
+          <string notr="true">Mamba</string>
          </property>
          <property name="openExternalLinks">
           <bool>true</bool>

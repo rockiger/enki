@@ -3,7 +3,7 @@ File contains some volatile info, such as version, release date and authors
 """
 import os.path
 
-PACKAGE_NAME = "Enki"
+PACKAGE_NAME = "Mamba"
 PACKAGE_ORGANISATION = "Andrei Kopats"
 PACKAGE_URL = "https://enki-editor.org"
 PACKAGE_VERSION = "17.03.3"

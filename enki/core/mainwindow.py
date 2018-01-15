@@ -255,8 +255,8 @@ class MainWindow(QMainWindow):
         action("mFile/aOpen",                         "&Open..."              , "document-open",        "Ctrl+O" ,      "Open a file"            , True)
         menu  ("mFile/mSave",                         "&Save"                 , "document-save"   )
         action("mFile/mSave/aCurrent",                "&Save"                 , "document-save" ,        "Ctrl+S" ,      "Save the current file"  , False)
-        action("mFile/mSave/aSaveAs",                 "Save As..."            , "document-save-as" ,        "Ctrl+Alt+S" ,  ""                           , False)
-        action("mFile/mSave/aAll",                    "Save &All"             , "document-save-all",      'Shift+Ctrl+S', "Save all files"         , False)
+        action("mFile/mSave/aSaveAs",                 "Save As..."            , "document-save-as" ,        "Shift+Ctrl+S" ,  ""                  , False)
+        action("mFile/mSave/aAll",                    "Save &All"             , "document-save-all",      'Ctrl+Alt+S', "Save all files"         , False)
         menu  ("mFile/mReload",                       "&Reload"               , "refresh"   )
         action("mFile/mReload/aCurrent",              "Reload"                , "refresh"  ,     'F5',           "Reload the current file", False)
         action("mFile/mReload/aAll",                  "Reload All"            , "update-none"  ,     'Shift+F5',     "Reload all files"       , True)
@@ -272,12 +272,10 @@ class MainWindow(QMainWindow):
         separator("mFile")
 
         menu  ("mEdit",                               "Edit"                  , ""           )
-        action("mEdit/aStripTrailingWhitespace",      "Strip trailing whitespace when saving", "", "",            ""                   , True, True)
         separator("mEdit")
         menu  ("mEdit/mCopyPasteLines",               "Copy-paste lines"      , ""           )
         menu  ("mEdit/mIndentation",                  "Indentation"           , ""           )
         separator("mEdit")
-        action("mEdit/aEnableVimMode",                "Enable Vim mode"       , "",             "",             ""                      , False, True)
 
         menu  ("mView",                               "View"                  , ""           )
         action("mView/aShowIncorrectIndentation",      "Show incorrect indentation", "",       "",              ""                       , False, True)
@@ -303,6 +301,8 @@ class MainWindow(QMainWindow):
         menu  ("mNavigation/mScroll",                 "Scroll file"           , 'transform-move-vertical')
 
         menu  ("mSettings",                           "Settings"              , ""           )
+        action("mSettings/aStripTrailingWhitespace",      "Strip trailing whitespace when saving", "", "",            ""                   , True, True)
+        action("mSettings/aEnableVimMode",                "Enable Vim mode"       , "",             "",             ""                      , False, True)
 
         #menu  ("mTools",                              "Tools"                 , ""           )
         menu  ("mHelp",                               "Help"                  , ""           )

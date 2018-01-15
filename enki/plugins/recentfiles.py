@@ -24,7 +24,7 @@ class Plugin(QObject):
         self._recent = enki.core.json_wrapper.load(_FILE_PATH, 'recent file list', [])
         self._undoClose = core.actionManager().addAction("mFile/mUndoClose/aUndoClose",
                                                          "Undo close",
-                                                         shortcut='Shift+Ctrl+U')
+                                                         shortcut='Shift+Ctrl+T')
         core.workspace().documentClosed.connect(self._onDocumentClosed)
         self._undoClose.triggered.connect(self._onUndoClose)
         menu = core.actionManager().action("mFile/mUndoClose").menu()

@@ -88,12 +88,12 @@ class Plugin:
         showAnyIndentAction.setChecked(self._confShowAnyWhitespace())
         showAnyIndentAction.setEnabled(True)
 
-        stripTrailingWhitespaceAction = core.actionManager().action('mEdit/aStripTrailingWhitespace')
+        stripTrailingWhitespaceAction = core.actionManager().action('mSettings/aStripTrailingWhitespace')
         stripTrailingWhitespaceAction.triggered.connect(self._onStripTrailingTriggered)
         stripTrailingWhitespaceAction.setChecked(self._confStripTrailing())
         stripTrailingWhitespaceAction.setEnabled(True)
 
-        enableVimMode = core.actionManager().action('mEdit/aEnableVimMode')
+        enableVimMode = core.actionManager().action('mSettings/aEnableVimMode')
         enableVimMode.triggered.connect(self._onVimModeEnabledChanged)
         enableVimMode.setChecked(self._confVimModeEnabled())
         enableVimMode.setEnabled(True)
