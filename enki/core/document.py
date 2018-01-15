@@ -183,7 +183,7 @@ class Document(QWidget):
 
         self.qutepart = Qutepart(self)
 
-        self.qutepart.setStyleSheet('QPlainTextEdit {border: 0}')
+        #self.qutepart.setStyleSheet('QPlainTextEdit {border: 0}')
 
         self.qutepart.userWarning.connect(lambda text: core.mainWindow().statusBar().showMessage(text, 5000))
 
