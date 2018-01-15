@@ -74,16 +74,17 @@ class EolIndicatorAndSwitcher(QToolButton):
 
     It draws menu with EOL choise and switches EOL
     """
-    _ICON_FOR_MODE = {'\r\n': "winEol.png",
-                      '\r': "macEol.png",
-                      '\n': "unixEol.png"}
+    _ICON_FOR_MODE = {'\r\n': "windows.svg",
+                      '\r': "apple.svg",
+                      '\n': "linux.svg"}
 
     def __init__(self, parent):
         QToolButton.__init__(self, parent)
         self.setEnabled(False)
         self.setToolTip(self.tr("Line endings. Click for convert"))
         self.setIconSize(QSize(16, 16))
-        self.setIcon(QIcon(':/enkiicons/unixEol.png'))
+        self.setIcon(QIcon(
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), 'linux.svg')))
         self.setPopupMode(QToolButton.InstantPopup)
 
         menu = QMenu(self)  # menu filled on popup. Performance optimisation for quicker start up
@@ -123,7 +124,11 @@ class EolIndicatorAndSwitcher(QToolButton):
 
         def addAction(text, eolMode):
             """Add an action to the EOL menu"""
-            action = self.menu().addAction(QIcon(':/enkiicons/' + self._ICON_FOR_MODE[eolMode]), text)
+
+            print(os.path.join( os.path.dirname(os.path.abspath(__file__)), self._ICON_FOR_MODE[eolMode]))
+            action = self.menu().addAction(
+                QIcon(os.path.join(os.path.dirname(os.path.abspath(__file__)), self._ICON_FOR_MODE[eolMode])),
+                text)
             action.setData(eolMode)
             if eolMode == currentMode:
                 action.setCheckable(True)
@@ -147,7 +152,8 @@ class EolIndicatorAndSwitcher(QToolButton):
         """Change EOL mode on GUI
         """
         if mode is not None:
-            self.setIcon(QIcon(':/enkiicons/' + self._ICON_FOR_MODE[mode]))
+            self.setIcon(QIcon(os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)), self._ICON_FOR_MODE[mode])))
 
 
 class _IndentationDialog(QDialog):
