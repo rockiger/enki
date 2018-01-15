@@ -304,7 +304,7 @@ class MainWindow(QMainWindow):
 
         menu  ("mSettings",                           "Settings"              , ""           )
 
-        menu  ("mTools",                              "Tools"                 , ""           )
+        #menu  ("mTools",                              "Tools"                 , ""           )
         menu  ("mHelp",                               "Help"                  , ""           )
 
     @pyqtSlot()
