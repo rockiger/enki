@@ -121,7 +121,9 @@ class MainWindow(QMainWindow):
         self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
         self.setWindowTitle(self.defaultTitle())  # overwriten by workspace when file or it's modified state changes
-        self.setWindowIcon(QIcon(':/enkiicons/logo/enki.svg'))
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
+        logo_path = os.path.join(scriptDir,'../../icons/logo/mamba.svg')
+        self.setWindowIcon(QIcon(logo_path))
 
         # Create top tool bar
         self._topToolBar = QToolBar("topToolBar")
