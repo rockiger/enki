@@ -72,7 +72,8 @@ import sys
 import os.path
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QObject
-from PyQt5.QtWidgets import QDialog, QFontDialog, QTreeWidgetItem
+from PyQt5.QtWidgets import (QDialog, QFontDialog, QTreeWidgetItem, QWidget,
+                             QScrollArea, QVBoxLayout, QLabel)
 from PyQt5.QtGui import QColor, QFont, QIcon
 from PyQt5 import uic
 
@@ -290,6 +291,32 @@ class ChoiseOption(Option):
             if button.isChecked():
                 _set(self.config, self.optionName, self.cotrolToValue[button])
 
+class SettingsPage(QWidget):
+    """Settingspage width header that is scrollable"""
+
+    def __init__(self, header, parent=None):
+        QWidget.__init__(self, parent)
+        # Add a scrollArea that if they are more options that fit into the
+        # settings page
+        scrollArea = QScrollArea(self)
+        scrollArea.setWidgetResizable(True)
+        scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        baseLayout = QVBoxLayout()
+        baseLayout.setAlignment(Qt.AlignTop)
+        self.setLayout(baseLayout)
+
+        baseLayout.addWidget(QLabel("<h2>%s</h2>" % header))
+
+        baseWidget = QWidget()
+        scrollArea.setWidget(baseWidget)
+        baseLayout.addWidget(scrollArea)
+
+        self._vbox = QVBoxLayout()
+        baseWidget.setLayout(self._vbox)
+
+    def addWidget(self, widget):
+        """Adds widget widget to this SettingsPage's vboxlayout in"""
+        self._vbox.addWidget(widget)
 
 class UISettings(QDialog):
     """Settings dialog widget
@@ -380,6 +407,11 @@ class UISettings(QDialog):
         itemPath = self._itemPath(selectedItem)
         page = self._pageForItem[itemPath]
         self.swPages.setCurrentWidget(page)
+
+    def createSettingsPage(self, header, parent=None):
+        """Create and return a SettingsPage"""
+        p = parent if parent else self
+        return SettingsPage(header, p)
 
 
 class UISettingsManager(QObject):  # pylint: disable=R0903
