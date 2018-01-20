@@ -21,6 +21,10 @@ class PluginsPage(QWidget):
         scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         baseLayout = QVBoxLayout()
         self.setLayout(baseLayout)
+
+        self._label = QLabel()
+        baseLayout.addWidget(self._label)
+
         baseWidget = QWidget()
         scrollArea.setWidget(baseWidget)
         baseLayout.addWidget(scrollArea)
@@ -37,10 +41,9 @@ class PluginsPage(QWidget):
             except AttributeError as e:
                 qWarning("Can't call setParent of None type")
 
-        self._vbox.addWidget(QLabel(
-            """<h2>Installed Plugins: <code>%i</code></h2>
-            <p>Add plugins by putting them into <code>%s</code></p>
-            <p><\p>""" % (len(userPlugins), PLUGIN_DIR_PATH)))
+        self._label.setText("""<h2>Installed Plugins: <code>%i</code></h2>
+            <p>Add plugins by putting them into <code>%s</code></p>""" %
+            (len(userPlugins), PLUGIN_DIR_PATH))
         for entry in userPlugins:
             self._vbox.addWidget(PluginTitlecard(entry))
 

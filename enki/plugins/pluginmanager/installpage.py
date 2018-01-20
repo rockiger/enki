@@ -33,6 +33,10 @@ class InstallPage(QWidget):
         baseLayout = QVBoxLayout()
         baseLayout.setAlignment(Qt.AlignTop)
         self.setLayout(baseLayout)
+
+        self._label = QLabel()
+        baseLayout.addWidget(self._label)
+
         baseWidget = QWidget()
         scrollArea.setWidget(baseWidget)
         baseLayout.addWidget(scrollArea)
@@ -52,8 +56,8 @@ class InstallPage(QWidget):
         labelText = "<h2>Install Plugins</h2>"
         if (len(self._repo["plugins"]) < 1):
             labelText += "<p>It seems we could not load the plugin repository.</p>"
-            labelText += "<p style='color:red'>Make shure your internet connection is working and restart Enki.</p><p></p>"
-        self._vbox.addWidget(QLabel(labelText))
+            labelText += "<p style='color:red'>Make shure your internet connection is working and restart Enki.</p>"
+        self._label.setText(labelText)
 
         for entry in self._repo["plugins"]:
             isInstalled = helper.isPluginInstalled(entry["name"], userPlugins)
