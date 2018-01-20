@@ -21,7 +21,7 @@ from enki.resources.icons import qInitResources, qCleanupResources
 DATA_FILES_PATH = os.path.join(os.path.dirname(__file__), '..')
 
 _DEFAULT_CONFIG_PATH = os.path.join(DATA_FILES_PATH, 'config/enki.default.json')
-_CONFIG_PATH = os.path.join(enki.core.defines.CONFIG_DIR, 'enki.json')
+_CONFIG_PATH = os.path.join(enki.core.defines.CONFIG_DIR, 'mamba.json')
 
 _OLD_CONFIG_DIR = os.path.expanduser('~/.enki')
 

@@ -4,10 +4,10 @@ File contains some volatile info, such as version, release date and authors
 import os.path
 
 PACKAGE_NAME = "Mamba"
-PACKAGE_ORGANISATION = "Andrei Kopats"
-PACKAGE_URL = "https://enki-editor.org"
+PACKAGE_ORGANISATION = "Marco Laspe"
+PACKAGE_URL = "https://github.com/rockiger/mamba"
 PACKAGE_VERSION = "17.03.3"
-PACKAGE_COPYRIGHTS = "(C) 2017 Andrei KOPATS"
+PACKAGE_COPYRIGHTS = "(C) 2018 Marco Laspe"
 
 QUTEPART_SUPPORTED_MAJOR = 3
 QUTEPART_SUPPORTED_MINOR = 0
@@ -19,6 +19,6 @@ else:
     xdgConfigHome = os.path.expanduser('~/.config/')
 
 if os.path.isdir(xdgConfigHome):
-    CONFIG_DIR = os.path.join(xdgConfigHome, 'enki')
+    CONFIG_DIR = os.path.join(xdgConfigHome, 'mamba')
 else:
-    CONFIG_DIR = os.path.expanduser('~/.enki/')
+    CONFIG_DIR = os.path.expanduser('~/.mamba/')
