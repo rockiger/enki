@@ -199,10 +199,10 @@ class InstallableTitlecard(QGroupBox):
         QMessageBox(
             QMessageBox.Warning,
             "Could not install %s plugin."
-            % self._pluginEntry["pluginname"],
+            % self._pluginEntry["name"],
             """The %s plugin could not be downloaded. Please
             check your internet connection."""
-            % self._pluginEntry["pluginname"])
+            % self._pluginEntry["name"])
 
     def modulename(self):
         """Extracts the modulename detail url"""
