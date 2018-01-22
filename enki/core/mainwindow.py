@@ -307,6 +307,7 @@ class MainWindow(QMainWindow):
         action("mSettings/aEnableVimMode",                "Enable Vim mode"       , "",             "",             ""                      , False, True)
 
         #menu  ("mTools",                              "Tools"                 , ""           )
+        menu  ("mPlugins",                              "Plugins"                 , ""           )
         menu  ("mHelp",                               "Help"                  , ""           )
 
     @pyqtSlot()
