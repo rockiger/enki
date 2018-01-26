@@ -1,0 +1,12 @@
+"""A docstring describing the plugin in one sentence"""
+
+__pluginname__ = "PLUGINNAME"
+__author__ = "AUTHOR"
+__version__ = "0.1.0"
+
+class Plugin:
+  def __init__(self):
+    pass
+  
+  def terminate:
+    pass
