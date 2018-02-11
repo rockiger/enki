@@ -31,8 +31,7 @@ class _QueuedMessageWidget(QWidget):
         QWidget.__init__(self, *args)
         self._messages = []
         self._defaultTimeout = 0
-        self._defaultPixmap = self.style().standardIcon(
-            getattr(QStyle, "SP_MessageBoxInformation"))
+        self._defaultPixmap = QPixmap(":/enkiicons/infos.png")
         self._defaultBackground = QBrush(QColor(250, 230, 147))
         self._defaultForeground = QBrush(QColor(0, 0, 0))
 

@@ -50,20 +50,21 @@ class Plugin:
         directory = os.path.join(CONFIG_DIR, "userplugins")
         packagePath = QFileDialog.getExistingDirectory(
             parent=core.mainWindow(),
-            caption="Where do you want to create the plugin? Carful, existing files are overwritten!",
+            caption="Where do you want to create the plugin? Careful, existing files are overwritten!",
             directory=directory
         )
 
-        # current file path
-        curDir = os.path.dirname(os.path.abspath(__file__))
-        print(curDir)
-        shutil.copyfile(os.path.join(curDir, "barebones.template"),
-                        os.path.join(packagePath, "__init__.py"))
-        shutil.copyfile(os.path.join(curDir, "gitignore"),
-                        os.path.join(packagePath, ".gitignore"))
-        shutil.copy(os.path.join(curDir, "CHANGELOG.md"), packagePath)
-        shutil.copy(os.path.join(curDir, "LICENCE"), packagePath)
-        shutil.copy(os.path.join(curDir, "README.md"), packagePath)
+        if packagePath:
+            # current file path
+            curDir = os.path.dirname(os.path.abspath(__file__))
+            print(curDir)
+            shutil.copyfile(os.path.join(curDir, "barebones.template"),
+                            os.path.join(packagePath, "__init__.py"))
+            shutil.copyfile(os.path.join(curDir, "gitignore"),
+                            os.path.join(packagePath, ".gitignore"))
+            shutil.copy(os.path.join(curDir, "CHANGELOG.md"), packagePath)
+            shutil.copy(os.path.join(curDir, "LICENCE"), packagePath)
+            shutil.copy(os.path.join(curDir, "README.md"), packagePath)
 
-        # open project
-        core.project().open(packagePath)
+            # open project
+            core.project().open(packagePath)
